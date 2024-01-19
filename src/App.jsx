@@ -6,6 +6,7 @@ import {
   networkAtom,
   notificationsAtom,
 } from "./recoil/atoms";
+import { totalNotificationSelector } from "./recoil/selectors";
 
 function App() {
   return (
@@ -21,8 +22,7 @@ function MainApp() {
   const notificationsCount = useRecoilValue(notificationsAtom);
   const messagingCount = useRecoilValue(messagingAtom);
 
-  const totalCount =
-    networkCount + jobsCount + notificationsCount + messagingCount;
+  const totalCount = useRecoilValue(totalNotificationSelector);
 
   return (
     <>
