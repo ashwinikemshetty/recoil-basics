@@ -8,6 +8,7 @@ import {
   notificationsAtom,
 } from "./recoil/atoms";
 import {
+  asyncTotalNotificationSelector,
   totalNotificationSelector,
   totalNotificationSingleSelector,
 } from "./recoil/selectors";
@@ -42,6 +43,10 @@ function MainApp() {
   }, []);
   const totalCountFromSingle = useRecoilValue(totalNotificationSingleSelector);
 
+  // async notifications from API
+  const asyncNotificationsCount = useRecoilValue(
+    asyncTotalNotificationSelector
+  );
   return (
     <>
       <button>Home</button>
@@ -51,6 +56,7 @@ function MainApp() {
       <button>Notifications ({notificationsCount})</button>
       <button>Me ({totalCount})</button>
       <button>Me From API ({totalCountFromSingle})</button>
+      <button>Me From API async ({asyncNotificationsCount})</button>
     </>
   );
 }
