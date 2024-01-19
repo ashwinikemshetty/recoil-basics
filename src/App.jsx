@@ -1,12 +1,18 @@
-import { RecoilRoot, useRecoilValue } from "recoil";
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import "./App.css";
 import {
   jobsAtom,
   messagingAtom,
   networkAtom,
+  notifications,
   notificationsAtom,
 } from "./recoil/atoms";
-import { totalNotificationSelector } from "./recoil/selectors";
+import {
+  totalNotificationSelector,
+  totalNotificationSingleSelector,
+} from "./recoil/selectors";
+import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
   return (
@@ -24,6 +30,18 @@ function MainApp() {
 
   const totalCount = useRecoilValue(totalNotificationSelector);
 
+  // From API
+
+  const [totalNotificationsCount, setTotalNotificationsCount] =
+    useRecoilState(notifications);
+
+  useEffect(() => {
+    axios.get("https://sum-server.100xdevs.com/notifications").then((res) => {
+      setTotalNotificationsCount(res.data);
+    });
+  }, []);
+  const totalCountFromSingle = useRecoilValue(totalNotificationSingleSelector);
+
   return (
     <>
       <button>Home</button>
@@ -32,6 +50,7 @@ function MainApp() {
       <button>Messaging ({messagingCount})</button>
       <button>Notifications ({notificationsCount})</button>
       <button>Me ({totalCount})</button>
+      <button>Me From API ({totalCountFromSingle})</button>
     </>
   );
 }

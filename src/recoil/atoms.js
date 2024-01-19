@@ -19,3 +19,13 @@ export const messagingAtom = atom({
   key: "messagingAtom",
   default: 0,
 });
+
+export const notifications = atom({
+  key: "notifications",
+  default: {
+    network: 0,
+    jobs: 0,
+    notifications: 0,
+    messaging: 0,
+  },
+});
